@@ -1,0 +1,290 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* -------------------------------------------------------------------------- */
+/*  Root tokens & resets                                                      */
+/* -------------------------------------------------------------------------- */
+
+:root {
+  --bg-base: #05060a;
+  --bg-elevated: #0a0b14;
+  --fg: #e6e7ee;
+  --fg-muted: rgba(230, 231, 238, 0.65);
+  --fg-faint: rgba(230, 231, 238, 0.45);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+
+  --grad-brand: linear-gradient(120deg, #a855f7 0%, #6366f1 45%, #06b6d4 100%);
+  --grad-brand-soft: linear-gradient(
+    120deg,
+    rgba(168, 85, 247, 0.18),
+    rgba(99, 102, 241, 0.18),
+    rgba(6, 182, 212, 0.18)
+  );
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+html,
+body {
+  background: var(--bg-base);
+  color: var(--fg);
+  overflow-x: hidden;
+}
+
+body {
+  font-feature-settings: "ss01", "cv11";
+  min-height: 100vh;
+}
+
+/* Selection */
+::selection {
+  background: rgba(139, 92, 246, 0.45);
+  color: #fff;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #06070d;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #a855f7, #06b6d4);
+  border-radius: 9999px;
+  border: 2px solid #06070d;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Reusable utilities                                                        */
+/* -------------------------------------------------------------------------- */
+
+@layer components {
+  /* Glassmorphism surfaces */
+  .glass {
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.06),
+      rgba(255, 255, 255, 0.02)
+    );
+    border: 1px solid var(--border);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.06) inset,
+      0 20px 60px -30px rgba(0, 0, 0, 0.6);
+  }
+
+  .glass-strong {
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.08),
+      rgba(255, 255, 255, 0.03)
+    );
+    border: 1px solid var(--border-strong);
+    backdrop-filter: blur(22px) saturate(150%);
+    -webkit-backdrop-filter: blur(22px) saturate(150%);
+  }
+
+  /* Brand gradient text */
+  .text-gradient {
+    background: linear-gradient(120deg, #ffffff 0%, #cdb4ff 35%, #67e8f9 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .text-gradient-brand {
+    background: var(--grad-brand);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Primary CTA button with animated gradient + shine */
+  .btn-primary {
+    position: relative;
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.5rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(
+      120deg,
+      #a855f7 0%,
+      #6366f1 45%,
+      #06b6d4 100%
+    );
+    background-size: 200% 200%;
+    box-shadow:
+      0 10px 40px -10px rgba(139, 92, 246, 0.6),
+      0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.3s ease,
+      background-position 0.6s ease;
+    overflow: hidden;
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    background-position: 100% 50%;
+    box-shadow:
+      0 18px 60px -10px rgba(139, 92, 246, 0.75),
+      0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+  }
+  .btn-primary::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      120deg,
+      transparent 20%,
+      rgba(255, 255, 255, 0.35) 50%,
+      transparent 80%
+    );
+    transform: translateX(-120%);
+    transition: transform 0.9s ease;
+    z-index: -1;
+  }
+  .btn-primary:hover::before {
+    transform: translateX(120%);
+  }
+
+  /* Secondary / ghost button */
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.5rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-strong);
+    backdrop-filter: blur(10px);
+    transition:
+      transform 0.25s ease,
+      background 0.25s ease,
+      border-color 0.25s ease;
+  }
+  .btn-ghost:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.25);
+  }
+
+  /* Pill badge */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.375rem 0.875rem;
+    border-radius: 9999px;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: rgba(230, 231, 238, 0.85);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-strong);
+    backdrop-filter: blur(10px);
+  }
+
+  /* Section container */
+  .container-px {
+    padding-left: clamp(1.25rem, 4vw, 2.5rem);
+    padding-right: clamp(1.25rem, 4vw, 2.5rem);
+  }
+
+  /* Animated gradient border wrapper */
+  .grad-border {
+    position: relative;
+    border-radius: inherit;
+  }
+  .grad-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: linear-gradient(
+      120deg,
+      rgba(168, 85, 247, 0.7),
+      rgba(99, 102, 241, 0.4) 40%,
+      rgba(6, 182, 212, 0.7)
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* Hero title typography */
+  .hero-title {
+    font-size: clamp(3rem, 8vw, 7rem);
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    font-weight: 700;
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 5vw, 4rem);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    font-weight: 700;
+  }
+}
+
+/* Focus ring */
+*:focus-visible {
+  outline: 2px solid rgba(168, 85, 247, 0.7);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Custom cursor                                                             */
+/*  Hide the native cursor only when our JS cursor is mounted + enabled.      */
+/*  We still keep `cursor: text` on inputs so accessibility / keyboard users  */
+/*  on hybrid devices retain a normal experience.                             */
+/* -------------------------------------------------------------------------- */
+html.custom-cursor-active,
+html.custom-cursor-active * {
+  cursor: none !important;
+}
+
+/* Show the I-beam only on inputs/textareas when the custom cursor isn't drawn */
+html.custom-cursor-active input,
+html.custom-cursor-active textarea,
+html.custom-cursor-active [contenteditable="true"] {
+  caret-color: #a855f7;
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
