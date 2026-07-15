@@ -80,20 +80,6 @@ export default function Hero() {
       <div className="container-px mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-8">
         {/* LEFT — Copy */}
         <div className="lg:col-span-6">
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-          >
-            <span className="badge">
-              <Sparkles className="h-3.5 w-3.5 text-brand-cyan" />
-              AI Workflow Automation
-              <span className="ml-1 rounded-full bg-white/10 px-2 py-0.5 text-[10px] uppercase tracking-wider text-white/80">
-                New
-              </span>
-            </span>
-          </motion.div>
-
           <h1 className="hero-title mt-5">
             {[
               { text: "Automate Your", className: "text-white" },
@@ -184,7 +170,9 @@ export default function Hero() {
                 {Array.from({ length: 5 }).map((_, i) => (
                   <Star key={i} className="h-3.5 w-3.5 fill-current" />
                 ))}
-                <span className="ml-2 text-xs text-white/60">4.9 · 2.4k reviews</span>
+                <span className="ml-2 text-xs text-white/60">
+                  4.9 · 2.4k reviews
+                </span>
               </div>
               <p className="mt-0.5 text-sm text-white/70">
                 Trusted by{" "}
@@ -322,11 +310,15 @@ export default function Hero() {
                     <p className="text-[11px] uppercase tracking-wider text-white/55">
                       Automation
                     </p>
-                    <p className="text-sm font-semibold">Tasks completed today</p>
+                    <p className="text-sm font-semibold">
+                      Tasks completed today
+                    </p>
                   </div>
                 </div>
                 <div className="mt-3 flex items-baseline gap-2">
-                  <span className="text-2xl font-bold tracking-tight">1,284</span>
+                  <span className="text-2xl font-bold tracking-tight">
+                    1,284
+                  </span>
                   <span className="text-[11px] text-white/55">/ 1,500</span>
                 </div>
                 <div className="relative mt-2 h-1.5 w-full overflow-hidden rounded-full bg-white/10">
